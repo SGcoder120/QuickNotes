@@ -1,24 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import AddNote from "./components/AddNote";
+import EditNote from "./components/EditNote";
+import SearchNotes from "./components/SearchNotes";
+import "./App.css";
+
+export type Note = {
+  title: string;
+  content: string;
+};
 
 function App() {
+  const [activeTab, setActiveTab] = useState<"new" | "edit" | "search">("new");
+  const [notes, setNotes] = useState<Note[]>([]);
+
+  // Load from chrome storage
+  useEffect(() => {
+    chrome.storage.local.get(["notes"], (result) => {
+      if (result.notes) setNotes(result.notes);
+    });
+  }, []);
+
+  // Save to chrome storage
+  useEffect(() => {
+    chrome.storage.local.set({ notes });
+  }, [notes]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="app-container">
+      {/* Sidebar */}
+      <div className="sidebar">
+        <button
+          className={`sidebar-btn ${activeTab === "new" ? "active" : ""}`}
+          onClick={() => setActiveTab("new")}
         >
-          Learn React
-        </a>
-      </header>
+          ➕
+        </button>
+        <button
+          className={`sidebar-btn ${activeTab === "edit" ? "active" : ""}`}
+          onClick={() => setActiveTab("edit")}
+        >
+          📄
+        </button>
+        <button
+          className={`sidebar-btn ${activeTab === "search" ? "active" : ""}`}
+          onClick={() => setActiveTab("search")}
+        >
+          🔍
+        </button>
+      </div>
+
+      {/* Main Content */}
+      <div className="main-content">
+        {activeTab === "new" && (
+          <AddNote notes={notes} setNotes={setNotes} />
+        )}
+        {activeTab === "edit" && (
+          <EditNote notes={notes} setNotes={setNotes} />
+        )}
+        {activeTab === "search" && <SearchNotes notes={notes} />}
+      </div>
     </div>
   );
 }
