@@ -1,3 +1,22 @@
+# Quick Notes v3
+
+## Project Overview
+
+Quick Notes v3 is a note-taking web application built with React and TypeScript, bootstrapped using Create React App. The project is structured for modularity and maintainability, featuring components for adding, editing, and searching notes. 
+
+### Key Files and Folders
+- **public/**: Static assets and the main HTML template.
+- **src/**: Main source code for the React app.
+	- **App.tsx**: Main application component.
+	- **components/**: Contains modular React components for note management:
+		- `AddNote.tsx`, `EditNote.tsx`, `SearchNotes.tsx` and their respective CSS files.
+	- **index.tsx**: Entry point for the React app.
+	- **App.test.tsx**: Test file for the main app component.
+	- **setupTests.ts**: Test setup configuration.
+- **package.json**: Project dependencies and scripts.
+- **tsconfig.json**: TypeScript configuration.
+- **webpack.config.js**: Webpack configuration (if ejected or customized).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
