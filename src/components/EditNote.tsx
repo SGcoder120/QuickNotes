@@ -8,22 +8,27 @@ interface EditNoteProps {
 }
 
 function EditNote({ notes, setNotes }: EditNoteProps) {
-  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
   const startEdit = (index: number) => {
-    setEditIndex(index);
+    setEditingIndex(index);
     setEditTitle(notes[index].title);
     setEditContent(notes[index].content);
   };
 
-  const saveEdit = () => {
-    if (editIndex === null) return;
+  const saveEdit = (index: number) => {
     const updated = [...notes];
-    updated[editIndex] = { title: editTitle, content: editContent };
+    updated[index] = { title: editTitle, content: editContent };
     setNotes(updated);
-    setEditIndex(null);
+    setEditingIndex(null);
+    setEditTitle("");
+    setEditContent("");
+  };
+
+  const cancelEdit = () => {
+    setEditingIndex(null);
     setEditTitle("");
     setEditContent("");
   };
@@ -31,8 +36,8 @@ function EditNote({ notes, setNotes }: EditNoteProps) {
   const deleteNote = (index: number) => {
     const updated = notes.filter((_, i) => i !== index);
     setNotes(updated);
-    if (editIndex === index) {
-      setEditIndex(null);
+    if (editingIndex === index) {
+      setEditingIndex(null);
       setEditTitle("");
       setEditContent("");
     }
@@ -41,42 +46,44 @@ function EditNote({ notes, setNotes }: EditNoteProps) {
   return (
     <div>
       <h2>Quick Notes - Edit Notes</h2>
-
-      {editIndex === null ? (
-        <div className="notes-list">
-          {notes.length === 0 ? (
-            <p>No notes yet.</p>
-          ) : (
-            notes.map((note, index) => (
-              <div key={index} className="note-card">
-                <h4>{note.title}</h4>
-                <p>{note.content}</p>
-                <div className="note-actions">
-                  <button onClick={() => startEdit(index)}>✏️ Edit</button>
-                  <button onClick={() => deleteNote(index)}>🗑 Delete</button>
+      <div className="notes-list">
+        {notes.length === 0 ? (
+          <p>No notes yet.</p>
+        ) : (
+          notes.map((note, index) => (
+            <div key={index} className="note-card">
+              {editingIndex === index ? (
+                <div className="edit-form">
+                  <input
+                    type="text"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    className="title-input"
+                  />
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    className="note-textarea"
+                  />
+                  <div className="note-actions">
+                    <button onClick={() => saveEdit(index)} className="save-button">Save Changes</button>
+                    <button onClick={cancelEdit}>Cancel</button>
+                  </div>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
-      ) : (
-        <div className="edit-form">
-          <input
-            type="text"
-            value={editTitle}
-            onChange={(e) => setEditTitle(e.target.value)}
-            className="title-input"
-          />
-          <textarea
-            value={editContent}
-            onChange={(e) => setEditContent(e.target.value)}
-            className="note-textarea"
-          />
-          <button onClick={saveEdit} className="save-btn">
-            Save Changes
-          </button>
-        </div>
-      )}
+              ) : (
+                <div>
+                  <h4>{note.title}</h4>
+                  <p>{note.content}</p>
+                  <div className="note-actions">
+                    <button onClick={() => startEdit(index)}>✏️ Edit</button>
+                    <button onClick={() => deleteNote(index)}>🗑 Delete</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

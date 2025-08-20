@@ -57,7 +57,9 @@ function App() {
         {activeTab === "edit" && (
           <EditNote notes={notes} setNotes={setNotes} />
         )}
-        {activeTab === "search" && <SearchNotes notes={notes} />}
+        {activeTab === "search" && (
+          <SearchNotes notes={notes} setNotes={setNotes}/>
+        )}
       </div>
     </div>
   );
