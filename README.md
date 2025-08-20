@@ -63,3 +63,20 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Current Features List
+
+- Add and save notes
+- Edit existing notes
+- Search for notes 
+- Edit the searched notes within the tab
+- Save drafts on new notes to add
+
+## Features to add
+
+- Add date created and last edited date on each note
+- Add a cool bg
+- Add Quick Notes icon
+- Move around order of notes
+- Notes trash can
+- Export data
