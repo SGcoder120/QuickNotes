@@ -75,7 +75,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Features to add
 
 - Add date created and last edited date on each note
-- Add a cool bcakground image
+- Add a cool background image
 - Add Quick Notes icon
 - Move around order of notes
 - Notes trash can
