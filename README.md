@@ -71,12 +71,12 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Search for notes 
 - Edit the searched notes within the tab
 - Persistent drafts on new notes to add
+- Added Quick Notes icon
 
 ## Features to add
 
 - Add date created and last edited date on each note
 - Add a cool background image
-- Add Quick Notes icon
 - Move around order of notes
 - Notes trash can
 - Export data
