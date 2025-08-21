@@ -70,13 +70,14 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Edit existing notes
 - Search for notes 
 - Edit the searched notes within the tab
-- Save drafts on new notes to add
+- Persistent drafts on new notes to add
 
 ## Features to add
 
 - Add date created and last edited date on each note
-- Add a cool bg
+- Add a cool bcakground image
 - Add Quick Notes icon
 - Move around order of notes
 - Notes trash can
 - Export data
+- AI generated notes?
