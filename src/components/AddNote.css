@@ -4,11 +4,12 @@
   gap: 10px;
 }
 
-.title-input {
+.note-title-input {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  width: 100%;
+  font-family: monospace;
+  width: 95%;
 }
 
 .note-textarea {
@@ -17,10 +18,11 @@
   border-radius: 6px;
   border: 1px solid #ccc;
   resize: vertical;
-  width: 100%;
+  font-family: monospace;
+  width: 95%;
 }
 
-.save-btn {
+.add-btn {
   background: #28a745;
   color: white;
   padding: 8px;
@@ -30,6 +32,6 @@
   transition: background 0.2s;
 }
 
-.save-btn:hover {
+.add-btn:hover {
   background: #218838;
 }

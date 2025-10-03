@@ -13,6 +13,19 @@
   margin-bottom: 16px;
 }
 
+.sidebar-btn {
+  flex: 1;
+  padding: 12px;
+  width: 4rem;
+  margin: 0 4px;
+  border: none;
+  background: #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.2s;
+}
+
 .tab-btn {
   flex: 1;
   padding: 8px;

@@ -9,7 +9,12 @@ interface EditNoteProps {
   setTrashedNotes: React.Dispatch<React.SetStateAction<Note[]>>;
 }
 
-function EditNote({ notes, setNotes, trashedNotes, setTrashedNotes }: EditNoteProps) {
+function EditNote({
+  notes,
+  setNotes,
+  trashedNotes,
+  setTrashedNotes,
+}: EditNoteProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
@@ -22,9 +27,11 @@ function EditNote({ notes, setNotes, trashedNotes, setTrashedNotes }: EditNotePr
 
   const saveEdit = () => {
     if (!editingId) return;
-    setNotes(notes.map((n) =>
-      n.id === editingId ? { ...n, title: editTitle, content: editContent } : n
-    ));
+    setNotes(
+      notes.map((n) =>
+        n.id === editingId ? { ...n, title: editTitle, content: editContent } : n
+      )
+    );
     setEditingId(null);
     setEditTitle("");
     setEditContent("");
@@ -33,8 +40,19 @@ function EditNote({ notes, setNotes, trashedNotes, setTrashedNotes }: EditNotePr
   const moveToTrash = (id: string) => {
     const note = notes.find((n) => n.id === id);
     if (!note) return;
+
+    // Remove from active notes
     setNotes(notes.filter((n) => n.id !== id));
-    setTrashedNotes([...trashedNotes, note]);
+
+    // Add to top of trashed notes
+    setTrashedNotes([note, ...trashedNotes]);
+
+    // If the trashed note was being edited, reset editor
+    if (editingId === id) {
+      setEditingId(null);
+      setEditTitle("");
+      setEditContent("");
+    }
   };
 
   return (
@@ -56,16 +74,21 @@ function EditNote({ notes, setNotes, trashedNotes, setTrashedNotes }: EditNotePr
             onChange={(e) => setEditContent(e.target.value)}
             className="note-textarea"
           />
-          <button onClick={saveEdit}>Save</button>
+          <div className="edit-actions">
+            <button onClick={saveEdit}>💾 Save</button>
+            <button onClick={() => moveToTrash(editingId)}>🗑 Move to Trash</button>
+          </div>
         </div>
       ) : (
         notes.map((note) => (
           <div key={note.id} className="note-card">
-            <h4>{note.title}</h4>
+            <h4>{note.title || "Untitled"}</h4>
             <h5>Created: {note.id}</h5>
             <p>{note.content}</p>
-            <button onClick={() => startEdit(note)}>✏️ Edit</button>
-            <button onClick={() => moveToTrash(note.id)}>🗑 Move to Trash</button>
+            <div className="note-actions">
+              <button onClick={() => startEdit(note)}>✏️ Edit</button>
+              <button onClick={() => moveToTrash(note.id)}>🗑 Move to Trash</button>
+            </div>
           </div>
         ))
       )}

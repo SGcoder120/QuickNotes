@@ -7,9 +7,9 @@ import ExportNotes from "./components/ExportNotes";
 import "./App.css";
 
 export interface Note {
-  id: string;
-  title: string;
-  content: string;
+  id: string; // using timestamp as ID
+  title: string; // title of the note
+  content: string; // content of the note
 };
 
 function App() {
