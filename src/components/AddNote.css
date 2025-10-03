@@ -1,34 +1,35 @@
 .add-note-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 10px;
-  height: 100%;
+  gap: 10px;
 }
 
-.add-note-input,
-.add-note-textarea {
+.title-input {
   padding: 8px;
-  font-size: 14px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 100%;
 }
 
-.add-note-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.add-note-button {
+.note-textarea {
   padding: 8px;
-  background-color: #4CAF50;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  min-height: 100px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  width: 100%;
 }
 
-.add-note-button:hover {
-  background-color: #45a049;
+.save-btn {
+  background: #28a745;
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.save-btn:hover {
+  background: #218838;
 }

@@ -1,74 +1,62 @@
 .search-notes-container {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  height: 100%;
+  gap: 12px;
 }
 
-.search-input {
+.title-input {
   padding: 8px;
-  font-size: 14px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  width: 100%;
 }
 
 .search-results {
+  max-height: 240px;
   overflow-y: auto;
-  max-height: 300px;
+  padding-right: 6px;
 }
 
-.note-item {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 8px;
-  margin-bottom: 8px;
-  background-color: #fafafa;
+.search-item {
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.note-display h3 {
-  margin: 0 0 4px;
+.note-display h4 {
+  margin: 0 0 6px 0;
 }
 
-.edit-input,
-.edit-textarea {
+.note-editing input,
+.note-editing textarea {
   width: 100%;
+  padding: 8px;
   margin-bottom: 6px;
-  padding: 6px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.edit-textarea {
-  min-height: 80px;
-  resize: vertical;
 }
 
 .edit-actions {
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 
-.edit-btn,
-.save-btn,
-.cancel-btn {
-  padding: 6px 10px;
+.edit-actions button {
+  flex: 1;
+  padding: 6px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.edit-btn {
-  background-color: #1976d2;
+.edit-actions button:first-child {
+  background: #28a745;
   color: white;
 }
 
-.save-btn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.cancel-btn {
-  background-color: #f44336;
+.edit-actions button:last-child {
+  background: #6c757d;
   color: white;
 }

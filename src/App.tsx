@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import AddNote from "./components/AddNote";
 import EditNote from "./components/EditNote";
 import SearchNotes from "./components/SearchNotes";
+import TrashNotes from "./components/TrashedNotes";
 import "./App.css";
 
-export type Note = {
+export interface Note {
+  id: string;
   title: string;
   content: string;
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState<"new" | "edit" | "search">("new");
+  const [activeTab, setActiveTab] = useState<"new" | "edit" | "search" | "trash" >("new");
   const [notes, setNotes] = useState<Note[]>([]);
+  const [trashedNotes, setTrashedNotes] = useState<Note[]>([]);
 
   // Load from chrome storage
   useEffect(() => {
@@ -47,6 +50,12 @@ function App() {
         >
           🔍
         </button>
+        <button
+          className={`sidebar-btn ${activeTab === "trash" ? "active" : ""}`}
+          onClick={() => setActiveTab("trash")}
+        >
+          🗑
+        </button>
       </div>
 
       {/* Main Content */}
@@ -55,10 +64,13 @@ function App() {
           <AddNote notes={notes} setNotes={setNotes} />
         )}
         {activeTab === "edit" && (
-          <EditNote notes={notes} setNotes={setNotes} />
+          <EditNote notes={notes} setNotes={setNotes} trashedNotes={trashedNotes} setTrashedNotes={setTrashedNotes}/>
         )}
         {activeTab === "search" && (
-          <SearchNotes notes={notes} setNotes={setNotes}/>
+          <SearchNotes notes={notes} setNotes={setNotes} trashedNotes={trashedNotes} setTrashedNotes={setTrashedNotes}/>
+        )}
+        {activeTab === "trash" && (
+          <TrashNotes trashedNotes={trashedNotes} setTrashedNotes={setTrashedNotes} setNotes={setNotes} />
         )}
       </div>
     </div>

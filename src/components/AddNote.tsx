@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Note } from "../App";
+import "./AddNote.css";
 
 interface AddNoteProps {
   notes: Note[];
@@ -10,56 +11,34 @@ function AddNote({ notes, setNotes }: AddNoteProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  // Load draft from chrome.storage.local on mount
-  useEffect(() => {
-    if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
-      chrome.storage.local.get(["quicknotes-draft-title", "quicknotes-draft-content"], (result) => {
-        if (result["quicknotes-draft-title"] !== undefined) setTitle(result["quicknotes-draft-title"]);
-        if (result["quicknotes-draft-content"] !== undefined) setContent(result["quicknotes-draft-content"]);
-      });
-    }
-  }, []);
-
-  // Save draft to chrome.storage.local on every change
-  useEffect(() => {
-    if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
-      chrome.storage.local.set({
-        "quicknotes-draft-title": title,
-        "quicknotes-draft-content": content,
-      });
-    }
-  }, [title, content]);
-
-  const saveNote = () => {
-    if (!title.trim() || !content.trim()) return; // Prevent saving empty notes
-    setNotes([{ title, content }, ...notes]);
-    setTitle("");
-    setContent("");
-    // Clear draft from chrome.storage.local
-    if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
-      chrome.storage.local.remove(["quicknotes-draft-title", "quicknotes-draft-content"]);
+  const handleAdd = () => {
+    if (title.trim() && content.trim()) {
+      setNotes([
+        { id: Date().toLocaleString(), title, content },
+        ...notes,
+      ]);
+      setTitle("");
+      setContent("");
     }
   };
 
   return (
-    <div>
-      <h2>Quick Notes - New Note</h2>
+    <div className="add-note-container">
+      <h2>Quick Notes - Add</h2>
       <input
         type="text"
-        placeholder="Title"
+        placeholder="Enter title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         className="title-input"
       />
       <textarea
-        placeholder="Add new note here"
+        placeholder="Enter content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         className="note-textarea"
       />
-      <button onClick={saveNote} className="save-btn">
-        Save
-      </button>
+      <button onClick={handleAdd} className="add-btn">Add Note</button>
     </div>
   );
 }
