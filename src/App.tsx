@@ -3,6 +3,7 @@ import AddNote from "./components/AddNote";
 import EditNote from "./components/EditNote";
 import SearchNotes from "./components/SearchNotes";
 import TrashNotes from "./components/TrashedNotes";
+import ExportNotes from "./components/ExportNotes";
 import "./App.css";
 
 export interface Note {
@@ -12,7 +13,7 @@ export interface Note {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState<"new" | "edit" | "search" | "trash" >("new");
+  const [activeTab, setActiveTab] = useState<"new" | "edit" | "search" | "trash" | "export">("new");
   const [notes, setNotes] = useState<Note[]>([]);
   const [trashedNotes, setTrashedNotes] = useState<Note[]>([]);
 
@@ -56,6 +57,12 @@ function App() {
         >
           🗑
         </button>
+        <button
+          className={`sidebar-btn ${activeTab === "export" ? "active" : ""}`}
+          onClick={() => setActiveTab("export")}
+        >
+          📤
+        </button>
       </div>
 
       {/* Main Content */}
@@ -71,6 +78,9 @@ function App() {
         )}
         {activeTab === "trash" && (
           <TrashNotes trashedNotes={trashedNotes} setTrashedNotes={setTrashedNotes} setNotes={setNotes} />
+        )}
+        {activeTab === "export" && (
+          <ExportNotes notes={notes} trashedNotes={trashedNotes} />
         )}
       </div>
     </div>
